@@ -1,0 +1,31 @@
+import pandas as pd
+
+
+data = pd.read_csv("celsius.csv")
+
+print(data.info())
+
+
+print(data.head())
+
+import seaborn as sns
+from sklearn.linear_model import LinearRegression
+
+sns.scatterplot(x="celsius", y="fahrenheit", data=data, hue="fahrenheit", palette="coolwarm")
+
+import numpy as np
+
+X = data["celsius"].values.reshape(-1, 1)
+Y = data["fahrenheit"].values.reshape(-1, 1)
+
+
+model = LinearRegression()
+model.fit(X, Y)
+
+
+prediction = model.predict([[8]])
+print("Prédiction pour 8°C en Fahrenheit:", prediction)
+
+
+score = model.score(X, Y)
+print("Score du modèle:", score)
