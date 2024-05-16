@@ -1,0 +1,28 @@
+import pandas as pd
+
+import seaborn as sb
+
+
+print(data.head())
+data = pd.read_csv("housing.csv")
+print (data["ocean_proximity"])
+data["ocean_proximity"].value_counts()
+
+print(data.info())
+print(data.describe())
+
+data.hist(figsize=(15, 8), bins=30, edgecolor="black")
+
+
+sb.scatterplot(x="latitude",y="longitude", data=data)
+
+
+sb.scatterplot(x="latitude",y="longitude", data=data ,hue="median_house_value", palette="coolwarm", size=data["population"] / 100)
+
+high_income_data = data[data["median_income"] > 14]
+
+data_na = data.dropna()
+print(data_na.info())
+
+dummies = pd.get_dummies(data_na["ocean_proximity"], dtype=int)
+data_na = data_na.join(dummies)
